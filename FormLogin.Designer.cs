@@ -43,6 +43,7 @@
             // 
             // btnlogin
             // 
+            this.btnlogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnlogin.Location = new System.Drawing.Point(533, 329);
             this.btnlogin.Name = "btnlogin";
             this.btnlogin.Size = new System.Drawing.Size(147, 53);
@@ -53,6 +54,7 @@
             // 
             // btncancel
             // 
+            this.btncancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btncancel.Location = new System.Drawing.Point(724, 329);
             this.btncancel.Name = "btncancel";
             this.btncancel.Size = new System.Drawing.Size(147, 53);
@@ -64,9 +66,10 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox1.Location = new System.Drawing.Point(624, 245);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(147, 24);
+            this.checkBox1.Size = new System.Drawing.Size(177, 29);
             this.checkBox1.TabIndex = 2;
             this.checkBox1.Text = "Show password";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -75,23 +78,26 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(508, 119);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(415, 105);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 20);
+            this.label1.Size = new System.Drawing.Size(225, 46);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Username";
+            this.label1.Text = "Username: ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(513, 187);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(420, 173);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 20);
+            this.label2.Size = new System.Drawing.Size(207, 46);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Password";
+            this.label2.Text = "Password:";
             // 
             // txtuser
             // 
+            this.txtuser.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtuser.Location = new System.Drawing.Point(624, 116);
             this.txtuser.Multiline = true;
             this.txtuser.Name = "txtuser";
@@ -100,6 +106,7 @@
             // 
             // txtpass
             // 
+            this.txtpass.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtpass.Location = new System.Drawing.Point(624, 179);
             this.txtpass.Multiline = true;
             this.txtpass.Name = "txtpass";

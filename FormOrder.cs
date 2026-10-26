@@ -91,7 +91,9 @@ namespace POS
 
         private void FormOrder_Load(object sender, EventArgs e)
         {
-            
+            SyncProductsToList();
+            LoadProductsFromDatabase(); // Thi
+
 
             // Your existing load code...
             panelProduct.Hide();
@@ -110,7 +112,17 @@ namespace POS
             lvproduct.Columns.Add("Stock", 80);           // Index 5
             lvproduct.Columns.Add("Discount", 80);        // Index 6
 
-            // Load existing products from SQL database automatically!
+
+            lvProducts.View = View.Details;
+            lvProducts.FullRowSelect = true;
+            lvProducts.GridLines = true;
+            lvProducts.Columns.Clear(); // Clear any old definitions first
+            lvProducts.Columns.Add("Image", 100);  
+            lvProducts.Columns.Add("Name", 150);
+            lvProducts.Columns.Add("Price", 80);
+            lvProducts.Columns.Add("Category", 120);
+
+
             LoadProductsFromDatabase();
         }
 
@@ -335,6 +347,7 @@ namespace POS
         {
             lvproduct.Hide();
             panelProduct.Hide();
+            PanelOrder.Show();
 
 
 
@@ -485,6 +498,136 @@ namespace POS
         private void FormOrder_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            txtChange.Clear();
+            txtCost.Clear();
+            txtSubTotal.Clear();
+            txtTotal.Clear();
+            txtTax.Clear();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+           
+        }
+        private void SyncProductsToList()
+        
+        {
+
+
+            lvProducts.Items.Clear();
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    // Update table/column names to match your database schema
+                    string query = "SELECT ProductName, Price, Category FROM Products";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    con.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string name = reader["ProductName"].ToString();
+                            decimal price = Convert.ToDecimal(reader["Price"]);
+                            string category = reader["Category"].ToString();
+
+                            // Create ListViewItem matching your columns: Image, Name, Price, Category
+                            ListViewItem item = new ListViewItem(""); // Image placeholder
+                            item.SubItems.Add(name);                  // Name
+                            item.SubItems.Add(price.ToString("F2"));  // Price
+                            item.SubItems.Add(category);              // Category
+
+                            // Attach price tag so AddToCart knows how much it costs
+                            item.Tag = price;
+
+                            lvProducts.Items.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Sync Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void CalculateTotals()
+        {
+            decimal subTotal = 0;
+
+            foreach (ListViewItem item in lvCart.Items)
+            {
+                if (item.SubItems.Count > 3)
+                {
+                    subTotal += Convert.ToDecimal(item.SubItems[3].Text);
+                }
+            }
+
+            decimal tax = subTotal * 0.10m; // 10% Tax rate
+            decimal total = subTotal + tax;
+
+            txtSubTotal.Text = subTotal.ToString("F2");
+            txtTax.Text = tax.ToString("F2");
+            txtTotal.Text = total.ToString("F2");
+        }
+        private void AddToCart(string itemName, decimal price)
+        {
+            bool itemExists = false;
+
+            // Check if item is already in cart
+            foreach (ListViewItem item in lvCart.Items)
+            {
+                if (item.SubItems[1].Text == itemName)
+                {
+                    int currentQty = Convert.ToInt32(item.SubItems[2].Text);
+                    currentQty++;
+                    item.SubItems[2].Text = currentQty.ToString();
+                    item.SubItems[3].Text = (currentQty * price).ToString("F2");
+
+                    itemExists = true;
+                    break;
+                }
+            }
+
+            // If it's a new item, add a fresh row
+            if (!itemExists)
+            {
+                int rowNum = lvCart.Items.Count + 1;
+                ListViewItem newItem = new ListViewItem(rowNum.ToString()); // No
+                newItem.SubItems.Add(itemName);                            // Items
+                newItem.SubItems.Add("1");                                  // Qty
+                newItem.SubItems.Add(price.ToString("F2"));                 // Amount
+                newItem.Tag = price;                                        // Base price reference
+
+                lvCart.Items.Add(newItem);
+            }
+
+            CalculateTotals();
+        }
+
+        private void lvProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lvProducts.SelectedItems.Count > 0)
+            {
+                ListViewItem selected = lvProducts.SelectedItems[0];
+
+                string itemName = selected.SubItems[1].Text; // Name column
+                decimal price = Convert.ToDecimal(selected.Tag ?? 0);
+
+                AddToCart(itemName, price);
+
+                // Deselect so clicking the same product again works immediately
+                lvProducts.SelectedItems.Clear();
+            }
         }
     }
 }

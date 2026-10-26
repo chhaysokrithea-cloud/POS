@@ -43,19 +43,25 @@
             // 
             // btnlogin
             // 
-            this.btnlogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnlogin.Location = new System.Drawing.Point(533, 329);
+            this.btnlogin.BackColor = System.Drawing.Color.White;
+            this.btnlogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnlogin.Font = new System.Drawing.Font("Antioch Text", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnlogin.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnlogin.Image = ((System.Drawing.Image)(resources.GetObject("btnlogin.Image")));
+            this.btnlogin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnlogin.Location = new System.Drawing.Point(533, 330);
             this.btnlogin.Name = "btnlogin";
-            this.btnlogin.Size = new System.Drawing.Size(147, 53);
+            this.btnlogin.Size = new System.Drawing.Size(148, 71);
             this.btnlogin.TabIndex = 0;
             this.btnlogin.Text = "Login";
-            this.btnlogin.UseVisualStyleBackColor = true;
+            this.btnlogin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnlogin.UseVisualStyleBackColor = false;
             this.btnlogin.Click += new System.EventHandler(this.button1_Click);
             // 
             // btncancel
             // 
             this.btncancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btncancel.Location = new System.Drawing.Point(724, 329);
+            this.btncancel.Location = new System.Drawing.Point(756, 339);
             this.btncancel.Name = "btncancel";
             this.btncancel.Size = new System.Drawing.Size(147, 53);
             this.btncancel.TabIndex = 1;
@@ -127,7 +133,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label3.Location = new System.Drawing.Point(648, 25);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(123, 46);
@@ -138,7 +144,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(956, 518);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.pictureBox1);

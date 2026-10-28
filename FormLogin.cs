@@ -95,5 +95,13 @@ namespace POS
         {
             txtpass.PasswordChar = '*';
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            FormOrder mainForm = new FormOrder();
+            mainForm.Show();
+            FormLogin loginForm = new FormLogin();
+            this.Hide();
+        }
     }
 }

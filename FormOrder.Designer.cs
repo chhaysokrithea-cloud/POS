@@ -56,7 +56,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.PanelOrder = new System.Windows.Forms.Panel();
-            this.button11 = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
             this.lvProducts = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -75,14 +75,9 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.lvCart = new System.Windows.Forms.ListView();
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button14 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
+            this.btnClearCalc = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
@@ -99,6 +94,12 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lvCart = new System.Windows.Forms.ListView();
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader19 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelProduct.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).BeginInit();
             this.PanelOrder.SuspendLayout();
@@ -171,7 +172,7 @@
             this.panelProduct.Controls.Add(this.label1);
             this.panelProduct.Location = new System.Drawing.Point(17, 123);
             this.panelProduct.Name = "panelProduct";
-            this.panelProduct.Size = new System.Drawing.Size(1245, 327);
+            this.panelProduct.Size = new System.Drawing.Size(1272, 327);
             this.panelProduct.TabIndex = 7;
             // 
             // lblFileName
@@ -390,7 +391,11 @@
             // 
             // PanelOrder
             // 
-            this.PanelOrder.Controls.Add(this.button11);
+            this.PanelOrder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelOrder.Controls.Add(this.lvCart);
+            this.PanelOrder.Controls.Add(this.btnPrint);
             this.PanelOrder.Controls.Add(this.lvProducts);
             this.PanelOrder.Controls.Add(this.btnPay);
             this.PanelOrder.Controls.Add(this.btnRemove);
@@ -405,10 +410,9 @@
             this.PanelOrder.Controls.Add(this.label11);
             this.PanelOrder.Controls.Add(this.label10);
             this.PanelOrder.Controls.Add(this.label9);
-            this.PanelOrder.Controls.Add(this.lvCart);
             this.PanelOrder.Controls.Add(this.button14);
             this.PanelOrder.Controls.Add(this.button13);
-            this.PanelOrder.Controls.Add(this.button12);
+            this.PanelOrder.Controls.Add(this.btnClearCalc);
             this.PanelOrder.Controls.Add(this.button10);
             this.PanelOrder.Controls.Add(this.button9);
             this.PanelOrder.Controls.Add(this.button8);
@@ -418,21 +422,21 @@
             this.PanelOrder.Controls.Add(this.button4);
             this.PanelOrder.Controls.Add(this.button3);
             this.PanelOrder.Controls.Add(this.button2);
-            this.PanelOrder.Location = new System.Drawing.Point(8, 123);
+            this.PanelOrder.Location = new System.Drawing.Point(70, 135);
             this.PanelOrder.Name = "PanelOrder";
-            this.PanelOrder.Size = new System.Drawing.Size(1268, 612);
+            this.PanelOrder.Size = new System.Drawing.Size(1303, 637);
             this.PanelOrder.TabIndex = 15;
             // 
-            // button11
+            // btnPrint
             // 
-            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button11.Location = new System.Drawing.Point(1038, 524);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(202, 85);
-            this.button11.TabIndex = 31;
-            this.button11.Text = "Clear";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
+            this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrint.Location = new System.Drawing.Point(1038, 532);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(202, 85);
+            this.btnPrint.TabIndex = 31;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.button11_Click);
             // 
             // lvProducts
             // 
@@ -444,9 +448,9 @@
             this.lvProducts.FullRowSelect = true;
             this.lvProducts.GridLines = true;
             this.lvProducts.HideSelection = false;
-            this.lvProducts.Location = new System.Drawing.Point(724, 1);
+            this.lvProducts.Location = new System.Drawing.Point(806, 1);
             this.lvProducts.Name = "lvProducts";
-            this.lvProducts.Size = new System.Drawing.Size(544, 426);
+            this.lvProducts.Size = new System.Drawing.Size(606, 426);
             this.lvProducts.TabIndex = 30;
             this.lvProducts.UseCompatibleStateImageBehavior = false;
             this.lvProducts.View = System.Windows.Forms.View.Details;
@@ -475,17 +479,18 @@
             // btnPay
             // 
             this.btnPay.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPay.Location = new System.Drawing.Point(809, 427);
+            this.btnPay.Location = new System.Drawing.Point(809, 435);
             this.btnPay.Name = "btnPay";
             this.btnPay.Size = new System.Drawing.Size(202, 85);
             this.btnPay.TabIndex = 29;
             this.btnPay.Text = "Pay";
             this.btnPay.UseVisualStyleBackColor = true;
+            this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
             // 
             // btnRemove
             // 
             this.btnRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemove.Location = new System.Drawing.Point(1038, 427);
+            this.btnRemove.Location = new System.Drawing.Point(1038, 435);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(202, 85);
             this.btnRemove.TabIndex = 28;
@@ -495,12 +500,13 @@
             // btnReset
             // 
             this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.Location = new System.Drawing.Point(809, 525);
+            this.btnReset.Location = new System.Drawing.Point(809, 533);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(202, 85);
             this.btnReset.TabIndex = 27;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // txtChange
             // 
@@ -521,7 +527,7 @@
             // 
             // txtCost
             // 
-            this.txtCost.Location = new System.Drawing.Point(558, 433);
+            this.txtCost.Location = new System.Drawing.Point(558, 444);
             this.txtCost.Multiline = true;
             this.txtCost.Name = "txtCost";
             this.txtCost.Size = new System.Drawing.Size(216, 53);
@@ -530,7 +536,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(437, 456);
+            this.label12.Location = new System.Drawing.Point(437, 467);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(42, 20);
             this.label12.TabIndex = 20;
@@ -587,46 +593,6 @@
             this.label9.TabIndex = 13;
             this.label9.Text = "Sub Total";
             // 
-            // lvCart
-            // 
-            this.lvCart.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader9,
-            this.columnHeader10,
-            this.columnHeader11,
-            this.columnHeader12});
-            this.lvCart.FullRowSelect = true;
-            this.lvCart.GridLines = true;
-            this.lvCart.HideSelection = false;
-            this.lvCart.Location = new System.Drawing.Point(374, 0);
-            this.lvCart.Name = "lvCart";
-            this.lvCart.Size = new System.Drawing.Size(349, 426);
-            this.lvCart.TabIndex = 12;
-            this.lvCart.UseCompatibleStateImageBehavior = false;
-            this.lvCart.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.DisplayIndex = 1;
-            this.columnHeader9.Text = "Items";
-            this.columnHeader9.Width = 100;
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.DisplayIndex = 2;
-            this.columnHeader10.Text = "Qty";
-            this.columnHeader10.Width = 100;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.DisplayIndex = 3;
-            this.columnHeader11.Text = "Amount";
-            this.columnHeader11.Width = 80;
-            // 
-            // columnHeader12
-            // 
-            this.columnHeader12.DisplayIndex = 0;
-            this.columnHeader12.Text = "No";
-            // 
             // button14
             // 
             this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -636,7 +602,7 @@
             this.button14.TabIndex = 11;
             this.button14.Text = ".";
             this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
+            this.button14.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button13
             // 
@@ -647,17 +613,18 @@
             this.button13.TabIndex = 10;
             this.button13.Text = "0";
             this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
+            this.button13.Click += new System.EventHandler(this.button13_Click_1);
             // 
-            // button12
+            // btnClearCalc
             // 
-            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button12.Location = new System.Drawing.Point(3, 327);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(114, 102);
-            this.button12.TabIndex = 9;
-            this.button12.Text = "C";
-            this.button12.UseVisualStyleBackColor = true;
+            this.btnClearCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearCalc.Location = new System.Drawing.Point(3, 327);
+            this.btnClearCalc.Name = "btnClearCalc";
+            this.btnClearCalc.Size = new System.Drawing.Size(114, 102);
+            this.btnClearCalc.TabIndex = 9;
+            this.btnClearCalc.Text = "C";
+            this.btnClearCalc.UseVisualStyleBackColor = true;
+            this.btnClearCalc.Click += new System.EventHandler(this.btnClearCalc_Click);
             // 
             // button10
             // 
@@ -668,6 +635,7 @@
             this.button10.TabIndex = 8;
             this.button10.Text = "1";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button9
             // 
@@ -678,6 +646,7 @@
             this.button9.TabIndex = 7;
             this.button9.Text = "2";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button8
             // 
@@ -688,7 +657,7 @@
             this.button8.TabIndex = 6;
             this.button8.Text = "3";
             this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.button8.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button7
             // 
@@ -699,6 +668,7 @@
             this.button7.TabIndex = 5;
             this.button7.Text = "6";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button6
             // 
@@ -709,6 +679,7 @@
             this.button6.TabIndex = 4;
             this.button6.Text = "9";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button5
             // 
@@ -719,6 +690,7 @@
             this.button5.TabIndex = 3;
             this.button5.Text = "5";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button4
             // 
@@ -729,6 +701,7 @@
             this.button4.TabIndex = 2;
             this.button4.Text = "4";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button3
             // 
@@ -739,6 +712,7 @@
             this.button3.TabIndex = 1;
             this.button3.Text = "8";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button2
             // 
@@ -749,9 +723,13 @@
             this.button2.TabIndex = 0;
             this.button2.Text = "7";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // lvproduct
             // 
+            this.lvproduct.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvproduct.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lvproduct.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
@@ -763,12 +741,13 @@
             this.lvproduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvproduct.FullRowSelect = true;
             this.lvproduct.HideSelection = false;
-            this.lvproduct.Location = new System.Drawing.Point(8, 492);
+            this.lvproduct.Location = new System.Drawing.Point(20, 751);
             this.lvproduct.Name = "lvproduct";
             this.lvproduct.Size = new System.Drawing.Size(1269, 255);
             this.lvproduct.TabIndex = 17;
             this.lvproduct.UseCompatibleStateImageBehavior = false;
             this.lvproduct.View = System.Windows.Forms.View.Details;
+            this.lvproduct.SelectedIndexChanged += new System.EventHandler(this.lvproduct_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -800,12 +779,48 @@
             this.columnHeader7.Text = "UnitInStock";
             this.columnHeader7.Width = 150;
             // 
+            // lvCart
+            // 
+            this.lvCart.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader15,
+            this.columnHeader16,
+            this.columnHeader17,
+            this.columnHeader18,
+            this.columnHeader19});
+            this.lvCart.HideSelection = false;
+            this.lvCart.Location = new System.Drawing.Point(381, 3);
+            this.lvCart.Name = "lvCart";
+            this.lvCart.Size = new System.Drawing.Size(419, 432);
+            this.lvCart.TabIndex = 32;
+            this.lvCart.UseCompatibleStateImageBehavior = false;
+            this.lvCart.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "No";
+            // 
+            // columnHeader16
+            // 
+            this.columnHeader16.Text = "Items";
+            // 
+            // columnHeader17
+            // 
+            this.columnHeader17.Text = "Price";
+            // 
+            // columnHeader18
+            // 
+            this.columnHeader18.Text = "Qty";
+            // 
+            // columnHeader19
+            // 
+            this.columnHeader19.Text = "Amount";
+            // 
             // FormOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1322, 992);
+            this.ClientSize = new System.Drawing.Size(1467, 1006);
             this.Controls.Add(this.lvproduct);
             this.Controls.Add(this.PanelOrder);
             this.Controls.Add(this.button1);
@@ -853,7 +868,7 @@
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel PanelOrder;
-        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button btnClearCalc;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button8;
@@ -865,11 +880,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.ListView lvCart;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.ColumnHeader columnHeader10;
-        private System.Windows.Forms.ColumnHeader columnHeader11;
-        private System.Windows.Forms.ColumnHeader columnHeader12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
@@ -890,7 +900,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader13;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.ListView lvproduct;
         private System.Windows.Forms.ColumnHeader columnHeader1;
@@ -899,5 +909,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ListView lvCart;
+        private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.ColumnHeader columnHeader16;
+        private System.Windows.Forms.ColumnHeader columnHeader17;
+        private System.Windows.Forms.ColumnHeader columnHeader18;
+        private System.Windows.Forms.ColumnHeader columnHeader19;
     }
 }

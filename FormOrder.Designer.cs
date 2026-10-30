@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOrder));
             this.btnProduct = new System.Windows.Forms.Button();
             this.btnOrder = new System.Windows.Forms.Button();
-            this.btnRegister = new System.Windows.Forms.Button();
+            this.btnRegisterUser = new System.Windows.Forms.Button();
             this.panelProduct = new System.Windows.Forms.Panel();
             this.lblFileName = new System.Windows.Forms.Label();
             this.pictureBoxProduct = new System.Windows.Forms.PictureBox();
@@ -56,6 +56,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.PanelOrder = new System.Windows.Forms.Panel();
+            this.lvCart = new System.Windows.Forms.ListView();
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader19 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnPrint = new System.Windows.Forms.Button();
             this.lvProducts = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -94,15 +100,16 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvCart = new System.Windows.Forms.ListView();
-            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader19 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panelRegister = new System.Windows.Forms.Panel();
+            this.btnRegister = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtUsername = new System.Windows.Forms.TextBox();
             this.panelProduct.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).BeginInit();
             this.PanelOrder.SuspendLayout();
+            this.panelRegister.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnProduct
@@ -133,19 +140,19 @@
             this.btnOrder.UseVisualStyleBackColor = true;
             this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
             // 
-            // btnRegister
+            // btnRegisterUser
             // 
-            this.btnRegister.Font = new System.Drawing.Font("NiDA OdorMeanChey", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRegister.Image = ((System.Drawing.Image)(resources.GetObject("btnRegister.Image")));
-            this.btnRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRegister.Location = new System.Drawing.Point(621, 10);
-            this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(254, 107);
-            this.btnRegister.TabIndex = 3;
-            this.btnRegister.Text = "Register User";
-            this.btnRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnRegister.UseVisualStyleBackColor = true;
-            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
+            this.btnRegisterUser.Font = new System.Drawing.Font("NiDA OdorMeanChey", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegisterUser.Image = ((System.Drawing.Image)(resources.GetObject("btnRegisterUser.Image")));
+            this.btnRegisterUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRegisterUser.Location = new System.Drawing.Point(621, 10);
+            this.btnRegisterUser.Name = "btnRegisterUser";
+            this.btnRegisterUser.Size = new System.Drawing.Size(254, 107);
+            this.btnRegisterUser.TabIndex = 3;
+            this.btnRegisterUser.Text = "Register User";
+            this.btnRegisterUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRegisterUser.UseVisualStyleBackColor = true;
+            this.btnRegisterUser.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // panelProduct
             // 
@@ -384,7 +391,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(250, 104);
             this.button1.TabIndex = 14;
-            this.button1.Text = "Setting";
+            this.button1.Text = "About";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
@@ -422,10 +429,46 @@
             this.PanelOrder.Controls.Add(this.button4);
             this.PanelOrder.Controls.Add(this.button3);
             this.PanelOrder.Controls.Add(this.button2);
-            this.PanelOrder.Location = new System.Drawing.Point(70, 135);
+            this.PanelOrder.Location = new System.Drawing.Point(17, 135);
             this.PanelOrder.Name = "PanelOrder";
             this.PanelOrder.Size = new System.Drawing.Size(1303, 637);
             this.PanelOrder.TabIndex = 15;
+            // 
+            // lvCart
+            // 
+            this.lvCart.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader15,
+            this.columnHeader16,
+            this.columnHeader17,
+            this.columnHeader18,
+            this.columnHeader19});
+            this.lvCart.HideSelection = false;
+            this.lvCart.Location = new System.Drawing.Point(381, 3);
+            this.lvCart.Name = "lvCart";
+            this.lvCart.Size = new System.Drawing.Size(419, 432);
+            this.lvCart.TabIndex = 32;
+            this.lvCart.UseCompatibleStateImageBehavior = false;
+            this.lvCart.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "No";
+            // 
+            // columnHeader16
+            // 
+            this.columnHeader16.Text = "Items";
+            // 
+            // columnHeader17
+            // 
+            this.columnHeader17.Text = "Price";
+            // 
+            // columnHeader18
+            // 
+            this.columnHeader18.Text = "Qty";
+            // 
+            // columnHeader19
+            // 
+            this.columnHeader19.Text = "Amount";
             // 
             // btnPrint
             // 
@@ -741,7 +784,7 @@
             this.lvproduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvproduct.FullRowSelect = true;
             this.lvproduct.HideSelection = false;
-            this.lvproduct.Location = new System.Drawing.Point(20, 751);
+            this.lvproduct.Location = new System.Drawing.Point(20, 575);
             this.lvproduct.Name = "lvproduct";
             this.lvproduct.Size = new System.Drawing.Size(1269, 255);
             this.lvproduct.TabIndex = 17;
@@ -771,49 +814,77 @@
             // 
             // columnHeader6
             // 
-            this.columnHeader6.Text = "Discount";
+            this.columnHeader6.Text = "Stock";
             this.columnHeader6.Width = 150;
             // 
             // columnHeader7
             // 
-            this.columnHeader7.Text = "UnitInStock";
+            this.columnHeader7.Text = "Discount";
             this.columnHeader7.Width = 150;
             // 
-            // lvCart
+            // panelRegister
             // 
-            this.lvCart.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader15,
-            this.columnHeader16,
-            this.columnHeader17,
-            this.columnHeader18,
-            this.columnHeader19});
-            this.lvCart.HideSelection = false;
-            this.lvCart.Location = new System.Drawing.Point(381, 3);
-            this.lvCart.Name = "lvCart";
-            this.lvCart.Size = new System.Drawing.Size(419, 432);
-            this.lvCart.TabIndex = 32;
-            this.lvCart.UseCompatibleStateImageBehavior = false;
-            this.lvCart.View = System.Windows.Forms.View.Details;
+            this.panelRegister.Controls.Add(this.btnRegister);
+            this.panelRegister.Controls.Add(this.label6);
+            this.panelRegister.Controls.Add(this.txtPassword);
+            this.panelRegister.Controls.Add(this.label4);
+            this.panelRegister.Controls.Add(this.txtUsername);
+            this.panelRegister.Location = new System.Drawing.Point(268, 190);
+            this.panelRegister.Name = "panelRegister";
+            this.panelRegister.Size = new System.Drawing.Size(589, 368);
+            this.panelRegister.TabIndex = 22;
             // 
-            // columnHeader15
+            // btnRegister
             // 
-            this.columnHeader15.Text = "No";
+            this.btnRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegister.Image = global::POS.Properties.Resources.Picture7;
+            this.btnRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRegister.Location = new System.Drawing.Point(142, 238);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(266, 100);
+            this.btnRegister.TabIndex = 22;
+            this.btnRegister.Text = "Register";
+            this.btnRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRegister.UseVisualStyleBackColor = true;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click_1);
             // 
-            // columnHeader16
+            // label6
             // 
-            this.columnHeader16.Text = "Items";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(114, 124);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(120, 29);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Password";
             // 
-            // columnHeader17
+            // txtPassword
             // 
-            this.columnHeader17.Text = "Price";
+            this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Location = new System.Drawing.Point(241, 110);
+            this.txtPassword.Multiline = true;
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(206, 48);
+            this.txtPassword.TabIndex = 19;
             // 
-            // columnHeader18
+            // label4
             // 
-            this.columnHeader18.Text = "Qty";
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(113, 50);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(124, 29);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Username";
             // 
-            // columnHeader19
+            // txtUsername
             // 
-            this.columnHeader19.Text = "Amount";
+            this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsername.Location = new System.Drawing.Point(241, 44);
+            this.txtUsername.Multiline = true;
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(206, 48);
+            this.txtUsername.TabIndex = 18;
             // 
             // FormOrder
             // 
@@ -821,11 +892,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1467, 1006);
+            this.Controls.Add(this.panelRegister);
             this.Controls.Add(this.lvproduct);
             this.Controls.Add(this.PanelOrder);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panelProduct);
-            this.Controls.Add(this.btnRegister);
+            this.Controls.Add(this.btnRegisterUser);
             this.Controls.Add(this.btnOrder);
             this.Controls.Add(this.btnProduct);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -838,6 +910,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).EndInit();
             this.PanelOrder.ResumeLayout(false);
             this.PanelOrder.PerformLayout();
+            this.panelRegister.ResumeLayout(false);
+            this.panelRegister.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -846,7 +920,7 @@
 
         private System.Windows.Forms.Button btnProduct;
         private System.Windows.Forms.Button btnOrder;
-        private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.Button btnRegisterUser;
         private System.Windows.Forms.Panel panelProduct;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
@@ -915,5 +989,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader17;
         private System.Windows.Forms.ColumnHeader columnHeader18;
         private System.Windows.Forms.ColumnHeader columnHeader19;
+        private System.Windows.Forms.Panel panelRegister;
+        private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtUsername;
     }
 }

@@ -96,10 +96,11 @@ namespace POS
 
         private void FormOrder_Load(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
+           
             SyncProductsToList();
             LoadProductsFromDatabase();
 
+            panelRegister.Hide();
             panelProduct.Hide();
             lvproduct.Hide();
 
@@ -382,68 +383,41 @@ namespace POS
             }
             else
             {
-                
+                lvproduct.Hide();
+                panelProduct.Hide();
+                lvCart.Hide();
+                lvProducts.Hide();
+                PanelOrder.Hide();
+                panelRegister.Show();
             }
 
-
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text.Trim();
-
-            // 1. Validation: Check if fields are empty
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-            {
-                MessageBox.Show("Please enter both username and password.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // 2. Check if username already exists in the 'login' table to avoid duplicates
-            string checkQuery = "SELECT COUNT(*) FROM login WHERE Username = @Username";
-            string insertQuery = "INSERT INTO login (Username, Password) VALUES (@Username, @Password)";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-
-                    // Check existing user
-                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
-                    {
-                        checkCmd.Parameters.AddWithValue("@Username", username);
-                        int userExists = (int)checkCmd.ExecuteScalar();
-
-                        if (userExists > 0)
-                        {
-                            MessageBox.Show("This username is already taken. Choose another one.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                    }
-
-                    // Insert new user directly into the 'login' table
-                    using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn))
-                    {
-                        insertCmd.Parameters.AddWithValue("@Username", username);
-                        insertCmd.Parameters.AddWithValue("@Password", password);
-
-                        insertCmd.ExecuteNonQuery();
-                        MessageBox.Show("Registration successful! New user added to the login table.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        // Clear fields and close form
-                        txtUsername.Clear();
-                        txtPassword.Clear();
-                        this.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            
 
         }
+        
 
+        private void ToggleDarkMode()
+        {
+            
+        }
+
+        // Helper method to recursively update colors on panels and child controls
+        
+        
         private void button1_Click_1(object sender, EventArgs e)
         {
+            string info = "POINT OF SALE SYSTEM\n" +
+                              "School Assignment Project\n\n" +
+                              "Developed By Team Members:\n" +
+                              "1. Mean Sreyli - ID: 67695\n" +
+                              "2. San Chenda - ID: 72469\n" +
+                              "3. Chhem Touch - ID: 68550\n" +
+                              "4. Thou Ponlork - ID: 68251\n" +
+                              "5. Chhay sothearithea - ID: 67675\n" +
+                              "6. K. Rachnasoriyareaksmey - ID: 68977\n\n" +
+                              "© 2026 All Rights Reserved";
+
+            MessageBox.Show(info, "About System", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void lvproduct_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -807,6 +781,62 @@ namespace POS
             txtCost.Clear();
             txtChange.Clear();
             MessageBox.Show("Cart has been reset.", "Reset", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnRegister_Click_1(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
+            {
+                MessageBox.Show("Please enter both username and password.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
+
+            // 2. Check if username already exists in the 'login' table to avoid duplicates
+            string checkQuery = "SELECT COUNT(*) FROM login WHERE Username = @Username";
+            string insertQuery = "INSERT INTO login (Username, Password) VALUES (@Username, @Password)";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // Check existing user
+                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
+                    {
+                        checkCmd.Parameters.AddWithValue("@Username", username);
+                        int userExists = (int)checkCmd.ExecuteScalar();
+
+                        if (userExists > 0)
+                        {
+                            MessageBox.Show("This username is already taken. Choose another one.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+
+                    // Insert new user directly into the 'login' table
+                    using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn))
+                    {
+                        insertCmd.Parameters.AddWithValue("@Username", username);
+                        insertCmd.Parameters.AddWithValue("@Password", password);
+
+                        insertCmd.ExecuteNonQuery();
+                        MessageBox.Show("Registration successful! New user added to the login table.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Clear fields and close form
+                        txtUsername.Clear();
+                        txtPassword.Clear();
+                        this.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

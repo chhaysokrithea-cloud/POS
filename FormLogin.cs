@@ -35,19 +35,25 @@ namespace POS
             string username = txtuser.Text.Trim();
             string password = txtpass.Text.Trim();
 
-            // 1. Check your special Admin rule first
-            if (username == "admin" && password == "admin")
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Please enter both username and password.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 1. Hardcoded Admin check (Matches "admin" or "Admin" case-insensitively)
+            if (username.Equals("admin", StringComparison.OrdinalIgnoreCase) && password == "admin")
             {
                 UserSession.Role = "Admin";
-                MessageBox.Show("Login successful! Logged in as: Admin");
+                MessageBox.Show("Login successful! Logged in as: Admin", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 FormOrder mainForm = new FormOrder();
                 mainForm.Show();
                 this.Hide();
-                return; // Stop here, login is complete
+                return; // Stop execution here so it doesn't run SQL check
             }
 
-            // 2. Check your SQL 'login' table for cashiers (like rithea / 123)
+            // 2. SQL Check for all other users (Cashiers)
             string query = "SELECT COUNT(1) FROM login WHERE Username = @User AND Password = @Pass";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -64,9 +70,9 @@ namespace POS
 
                         if (count > 0)
                         {
-                            // User found in SQL login table -> Log in as Cashier
+                            // Found in SQL -> Log in as Cashier
                             UserSession.Role = "Cashier";
-                            MessageBox.Show("Login successful! Logged in as: Cashier");
+                            MessageBox.Show("Login successful! Logged in as: Cashier", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             FormOrder mainForm = new FormOrder();
                             mainForm.Show();
@@ -74,13 +80,12 @@ namespace POS
                         }
                         else
                         {
-                            // Wrong username or password -> Fail login and DO NOT open form
                             MessageBox.Show("Login Failed! Invalid username or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Database Error: " + ex.Message);
+                        MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

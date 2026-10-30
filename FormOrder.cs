@@ -302,7 +302,12 @@ namespace POS
         {
             lvproduct.Items.Clear();
 
-            string query = "SELECT ProductID, ProductName, Category, Price, Quantity, Stock, Discount, ImagePath " +
+            // Re-initialize ImageList for filtered items
+            ImageList imgList = new ImageList();
+            imgList.ImageSize = new Size(64, 64);
+            lvproduct.SmallImageList = imgList;
+
+            string query = "SELECT ProductID, ProductName, Category, Price, Stock, Discount, ImagePath " +
                            "FROM Products WHERE ProductName LIKE @Search OR ProductID LIKE @Search";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -316,23 +321,51 @@ namespace POS
                         conn.Open();
                         SqlDataReader reader = cmd.ExecuteReader();
 
+                        int imageIndex = 0;
                         while (reader.Read())
                         {
+                            // 1. Load Image into ImageList
+                            string imgPath = reader["ImagePath"]?.ToString();
+                            if (!string.IsNullOrEmpty(imgPath) && File.Exists(imgPath))
+                            {
+                                using (Image originalImage = Image.FromFile(imgPath))
+                                {
+                                    Bitmap b = new Bitmap(originalImage, new Size(64, 64));
+                                    imgList.Images.Add(b);
+                                }
+                            }
+                            else
+                            {
+                                Bitmap b = new Bitmap(64, 64);
+                                imgList.Images.Add(b);
+                            }
+
+                            // 2. Create ListViewItem and bind ImageIndex
                             ListViewItem item = new ListViewItem(reader["ProductID"].ToString());
-                            item.SubItems.Add(reader["ProductName"].ToString());
-                            item.SubItems.Add(reader["Category"].ToString());
+                            item.ImageIndex = imageIndex++; // Link image index
+
+                            item.SubItems.Add(reader["ProductName"].ToString()); // Index 1
+                            item.SubItems.Add(reader["Category"].ToString());    // Index 2
 
                             if (decimal.TryParse(reader["Price"].ToString(), out decimal price))
                             {
-                                item.SubItems.Add(price.ToString("C2"));
+                                item.SubItems.Add(price.ToString("C2"));        // Index 3
                             }
                             else
                             {
                                 item.SubItems.Add(reader["Price"].ToString());
                             }
 
-                            item.SubItems.Add(reader["Stock"].ToString());
-                            item.SubItems.Add(reader["Discount"].ToString());
+                            item.SubItems.Add(reader["Stock"].ToString());        // Index 4
+
+                            if (decimal.TryParse(reader["Discount"].ToString(), out decimal discount))
+                            {
+                                item.SubItems.Add(discount.ToString("P2"));    // Index 5
+                            }
+                            else
+                            {
+                                item.SubItems.Add(reader["Discount"].ToString());
+                            }
 
                             lvproduct.Items.Add(item);
                         }
@@ -350,6 +383,7 @@ namespace POS
             lvproduct.Hide();
             panelProduct.Hide();
             PanelOrder.Show();
+            panelRegister.Hide();
         }
 
         string selectedImagePath = "";
@@ -490,19 +524,7 @@ namespace POS
             }
         }
 
-        private void button19_Click(object sender, EventArgs e)
-        {
-            if (this.WindowState == FormWindowState.Maximized && this.FormBorderStyle == FormBorderStyle.None)
-            {
-                this.FormBorderStyle = FormBorderStyle.Sizable;
-                this.WindowState = FormWindowState.Normal;
-            }
-            else
-            {
-                this.FormBorderStyle = FormBorderStyle.None;
-                this.WindowState = FormWindowState.Maximized;
-            }
-        }
+       
 
         private void FormOrder_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -543,13 +565,13 @@ namespace POS
             }
 
             receipt.AppendLine("----------------------------------------\n");
-            receipt.AppendLine($"SubTotal: ".PadRight(24) + txtSubTotal.Text);
-            receipt.AppendLine($"Tax (10%): ".PadRight(24) + txtTax.Text);
-            receipt.AppendLine($"TOTAL : ".PadRight(24) + txtTotal.Text);
-            receipt.AppendLine($"Cash Given: ".PadRight(24) + cashGiven.ToString("C2"));
-            receipt.AppendLine($"Change: ".PadRight(24) + txtChange.Text);
+            receipt.AppendLine($"SubTotal: \t".PadRight(24) + txtSubTotal.Text);
+            receipt.AppendLine($"Tax (10%): \t".PadRight(24) + txtTax.Text);
+            receipt.AppendLine($"TOTAL : \t\t".PadRight(24) + txtTotal.Text);
+            receipt.AppendLine($"Cash Given\t".PadRight(24) + cashGiven.ToString("C2"));
+            receipt.AppendLine($"Change: \t\t".PadRight(24) + txtChange.Text);
             receipt.AppendLine("\n================================");
-            receipt.AppendLine("           THANK YOU FOR MAKING US RICH!    ");
+            receipt.AppendLine("\t\tTHANK YOU");
             receipt.AppendLine("================================");
 
             MessageBox.Show(receipt.ToString(), "POS Receipt Preview", MessageBoxButtons.OK, MessageBoxIcon.Information);

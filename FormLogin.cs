@@ -99,6 +99,7 @@ namespace POS
         private void Form1_Load(object sender, EventArgs e)
         {
             txtpass.PasswordChar = '*';
+                
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -107,6 +108,11 @@ namespace POS
             mainForm.Show();
             FormLogin loginForm = new FormLogin();
             this.Hide();
+        }
+
+        private void FormLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

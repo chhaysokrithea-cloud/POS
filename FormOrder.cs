@@ -11,17 +11,51 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using static POS.FormLogin;
+using System.Drawing.Printing;
 
 namespace POS
 {
     public partial class FormOrder : Form
     {
-
         private string connectionString = @"Data Source=RITHEA-CHHAYSOK\DATASQL;Initial Catalog=Login;Integrated Security=True";
+        string selectedImagePath = "";
+
         public FormOrder()
         {
             InitializeComponent();
         }
+
+        private void FormOrder_Load(object sender, EventArgs e)
+        {
+            SyncProductsToList();
+            LoadProductsFromDatabase();
+
+            panelRegister.Hide();
+            panelProduct.Hide();
+            lvproduct.Hide();
+
+            // Set up ListView columns ONCE when the form loads in the correct order:
+            lvproduct.View = View.Details;
+            lvproduct.FullRowSelect = true;
+            lvproduct.GridLines = true;
+
+            lvproduct.Columns.Clear();
+            lvproduct.Columns.Add("Product ID", 150);
+            lvproduct.Columns.Add("Product Name", 150);
+            lvproduct.Columns.Add("Category", 120);
+            lvproduct.Columns.Add("Price", 80);
+            lvproduct.Columns.Add("Stock", 80);
+
+            lvProducts.View = View.Details;
+            lvProducts.FullRowSelect = true;
+            lvProducts.GridLines = true;
+            lvProducts.Columns.Clear();
+            lvProducts.Columns.Add("Image", 100);
+            lvProducts.Columns.Add("Name", 150);
+            lvProducts.Columns.Add("Price", 80);
+            lvProducts.Columns.Add("Category", 120);
+        }
+
         private void LoadProductsFromDatabase()
         {
             ImageList imgList = new ImageList();
@@ -31,7 +65,7 @@ namespace POS
             imgList.ImageSize = new Size(64, 64);
             lvproduct.SmallImageList = imgList;
 
-            string query = "SELECT ProductID, ProductName, Category, Price, Quantity, Stock, Discount, ImagePath FROM Products";
+            string query = "SELECT ProductID, ProductName, Category, Price, Stock, ImagePath FROM Products";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -63,25 +97,19 @@ namespace POS
                             ListViewItem item = new ListViewItem(reader["ProductID"].ToString());
                             item.ImageIndex = imageIndex++;
 
-                            item.SubItems.Add(reader["ProductName"].ToString());  // Index 1
-                            item.SubItems.Add(reader["Category"].ToString());      // Index 2
+                            item.SubItems.Add(reader["ProductName"].ToString());
+                            item.SubItems.Add(reader["Category"].ToString());
 
                             if (decimal.TryParse(reader["Price"].ToString(), out decimal price))
                             {
-                                item.SubItems.Add(price.ToString("C2"));          // Index 3: Price
+                                item.SubItems.Add(price.ToString("C2"));
                             }
                             else
                             {
                                 item.SubItems.Add(reader["Price"].ToString());
                             }
-                            if (decimal.TryParse(reader["Discount"].ToString(), out decimal discount))
-                            {
-                                item.SubItems.Add(discount.ToString("P2")); // Index 5: Discount
-                            }
-                            else
-                            {
-                                item.SubItems.Add(reader["Discount"].ToString());
-                            }
+
+                            item.SubItems.Add(reader["Stock"].ToString());
 
                             lvproduct.Items.Add(item);
                         }
@@ -94,45 +122,11 @@ namespace POS
             }
         }
 
-        private void FormOrder_Load(object sender, EventArgs e)
-        {
-           
-            SyncProductsToList();
-            LoadProductsFromDatabase();
-
-            panelRegister.Hide();
-            panelProduct.Hide();
-            lvproduct.Hide();
-
-            // Set up ListView columns ONCE when the form loads in the correct order:
-            lvproduct.View = View.Details;
-            lvproduct.FullRowSelect = true;
-            lvproduct.GridLines = true;
-
-            lvproduct.Columns.Clear(); // Clear any old definitions first
-            lvproduct.Columns.Add("Product ID", 150);      // Index 0
-            lvproduct.Columns.Add("Product Name", 150);   // Index 1
-            lvproduct.Columns.Add("Category", 120);        // Index 2
-            lvproduct.Columns.Add("Price", 80);            // Index 3
-            lvproduct.Columns.Add("Stock", 80);            // Index 4
-            lvproduct.Columns.Add("Discount", 80);         // Index 5
-
-
-            lvProducts.View = View.Details;
-            lvProducts.FullRowSelect = true;
-            lvProducts.GridLines = true;
-            lvProducts.Columns.Clear(); // Clear any old definitions first
-            lvProducts.Columns.Add("Image", 100);
-            lvProducts.Columns.Add("Name", 150);
-            lvProducts.Columns.Add("Price", 80);
-            lvProducts.Columns.Add("Category", 120);
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            PanelOrder.Hide();
             if (UserSession.Role != "Admin")
             {
+                PanelOrder.Hide();
                 lvproduct.Hide();
                 panelProduct.Hide();
                 MessageBox.Show("Only administrator can open this", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -140,6 +134,8 @@ namespace POS
             }
             else
             {
+                panelRegister.Hide();
+                PanelOrder.Hide();
                 panelProduct.Show();
                 lvproduct.Show();
             }
@@ -148,7 +144,7 @@ namespace POS
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (txtProductID.Text.Trim() == "" || txtProductName.Text.Trim() == "" || txtPrice.Text.Trim() == "" ||
-               txtDiscount.Text.Trim() == "" || txtStock.Text.Trim() == "" || cmbCategory.SelectedIndex == -1)
+                txtStock.Text.Trim() == "" || cmbCategory.SelectedIndex == -1)
             {
                 MessageBox.Show("Please fill in all required fields.");
                 return;
@@ -161,9 +157,8 @@ namespace POS
                 return;
             }
 
-            // 2. Insert into SQL Database
-            string query = "INSERT INTO Products (ProductID, ProductName, Category, Price, Stock, Discount, ImagePath) " +
-                           "VALUES (@ID, @Name, @Category, @Price, @Stock, @Discount, @ImagePath)";
+            string query = "INSERT INTO Products (ProductID, ProductName, Category, Price, Stock, ImagePath) " +
+                           "VALUES (@ID, @Name, @Category, @Price, @Stock, @ImagePath)";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -174,7 +169,6 @@ namespace POS
                     cmd.Parameters.AddWithValue("@Category", cmbCategory.Text);
                     cmd.Parameters.AddWithValue("@Price", price);
                     cmd.Parameters.AddWithValue("@Stock", string.IsNullOrEmpty(txtStock.Text) ? 0 : Convert.ToInt32(txtStock.Text));
-                    cmd.Parameters.AddWithValue("@Discount", string.IsNullOrEmpty(txtDiscount.Text) ? 0 : Convert.ToDecimal(txtDiscount.Text));
                     cmd.Parameters.AddWithValue("@ImagePath", string.IsNullOrEmpty(selectedImagePath) ? (object)DBNull.Value : selectedImagePath);
                     try
                     {
@@ -190,18 +184,16 @@ namespace POS
                 }
             }
 
-            ListViewItem item = new ListViewItem(txtProductID.Text);                  // Index 0: Product ID
-            item.SubItems.Add(txtProductName.Text);                                    // Index 1: Product Name
-            item.SubItems.Add(cmbCategory.Text);                                       // Index 2: Category
-            item.SubItems.Add(price.ToString("C2"));                                   // Index 3: Price ($ format)
-            item.SubItems.Add(string.IsNullOrEmpty(txtStock.Text) ? "0" : txtStock.Text);      // Index 4: Stock
-            item.SubItems.Add(string.IsNullOrEmpty(txtDiscount.Text) ? "0" : txtDiscount.Text); // Index 5: Discount
+            ListViewItem item = new ListViewItem(txtProductID.Text);
+            item.SubItems.Add(txtProductName.Text);
+            item.SubItems.Add(cmbCategory.Text);
+            item.SubItems.Add(price.ToString("C2"));
+            item.SubItems.Add(string.IsNullOrEmpty(txtStock.Text) ? "0" : txtStock.Text);
 
             lvproduct.Items.Add(item);
 
-            // Clear fields for the next entry
             btnClear_Click(sender, e);
-            SyncProductsToList(); // Refresh order list view too
+            SyncProductsToList();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -211,8 +203,8 @@ namespace POS
             txtPrice.Clear();
             txtStock.Clear();
             cmbCategory.SelectedIndex = -1;
-            txtDiscount.Clear();
             txtProductID.Focus();
+           
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -266,7 +258,6 @@ namespace POS
                            "Category = ISNULL(NULLIF(@Category, ''), Category), " +
                            "Price = CASE WHEN @Price = 0 THEN Price ELSE @Price END, " +
                            "Stock = ISNULL(NULLIF(@Stock, ''), Stock), " +
-                           "Discount = ISNULL(NULLIF(@Discount, ''), Discount), " +
                            "ImagePath = ISNULL(NULLIF(@ImagePath, ''), ImagePath) " +
                            "WHERE ProductID = @ID";
 
@@ -279,7 +270,6 @@ namespace POS
                     cmd.Parameters.AddWithValue("@Category", cmbCategory.Text);
                     cmd.Parameters.AddWithValue("@Price", price);
                     cmd.Parameters.AddWithValue("@Stock", string.IsNullOrEmpty(txtStock.Text) ? (object)DBNull.Value : txtStock.Text);
-                    cmd.Parameters.AddWithValue("@Discount", string.IsNullOrEmpty(txtDiscount.Text) ? (object)DBNull.Value : txtDiscount.Text);
                     cmd.Parameters.AddWithValue("@ImagePath", string.IsNullOrEmpty(selectedImagePath) ? (object)DBNull.Value : selectedImagePath);
 
                     try
@@ -287,7 +277,7 @@ namespace POS
                         conn.Open();
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Product updated successfully!");
-                        LoadProductsFromDatabase(); // Refresh listview
+                        LoadProductsFromDatabase();
                         SyncProductsToList();
                     }
                     catch (Exception ex)
@@ -302,12 +292,11 @@ namespace POS
         {
             lvproduct.Items.Clear();
 
-            // Re-initialize ImageList for filtered items
             ImageList imgList = new ImageList();
             imgList.ImageSize = new Size(64, 64);
             lvproduct.SmallImageList = imgList;
 
-            string query = "SELECT ProductID, ProductName, Category, Price, Stock, Discount, ImagePath " +
+            string query = "SELECT ProductID, ProductName, Category, Price, Stock, ImagePath " +
                            "FROM Products WHERE ProductName LIKE @Search OR ProductID LIKE @Search";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -324,7 +313,6 @@ namespace POS
                         int imageIndex = 0;
                         while (reader.Read())
                         {
-                            // 1. Load Image into ImageList
                             string imgPath = reader["ImagePath"]?.ToString();
                             if (!string.IsNullOrEmpty(imgPath) && File.Exists(imgPath))
                             {
@@ -340,32 +328,22 @@ namespace POS
                                 imgList.Images.Add(b);
                             }
 
-                            // 2. Create ListViewItem and bind ImageIndex
                             ListViewItem item = new ListViewItem(reader["ProductID"].ToString());
-                            item.ImageIndex = imageIndex++; // Link image index
+                            item.ImageIndex = imageIndex++;
 
-                            item.SubItems.Add(reader["ProductName"].ToString()); // Index 1
-                            item.SubItems.Add(reader["Category"].ToString());    // Index 2
+                            item.SubItems.Add(reader["ProductName"].ToString());
+                            item.SubItems.Add(reader["Category"].ToString());
 
                             if (decimal.TryParse(reader["Price"].ToString(), out decimal price))
                             {
-                                item.SubItems.Add(price.ToString("C2"));        // Index 3
+                                item.SubItems.Add(price.ToString("C2"));
                             }
                             else
                             {
                                 item.SubItems.Add(reader["Price"].ToString());
                             }
 
-                            item.SubItems.Add(reader["Stock"].ToString());        // Index 4
-
-                            if (decimal.TryParse(reader["Discount"].ToString(), out decimal discount))
-                            {
-                                item.SubItems.Add(discount.ToString("P2"));    // Index 5
-                            }
-                            else
-                            {
-                                item.SubItems.Add(reader["Discount"].ToString());
-                            }
+                            item.SubItems.Add(reader["Stock"].ToString());
 
                             lvproduct.Items.Add(item);
                         }
@@ -382,11 +360,11 @@ namespace POS
         {
             lvproduct.Hide();
             panelProduct.Hide();
+            lvProducts.Show();
+            lvCart.Show();
             PanelOrder.Show();
             panelRegister.Hide();
         }
-
-        string selectedImagePath = "";
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
@@ -405,9 +383,51 @@ namespace POS
                 }
             }
         }
+        private void btnRegister_Click_1(object sender, EventArgs e)
+        {
+            string query = "SELECT COUNT(1) FROM login WHERE Username = @User AND Password = @Pass";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@User", txtUsername.Text);
+                    cmd.Parameters.AddWithValue("@Pass", txtPassword.Text);
+                    try
+                    {
+                        conn.Open();
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+                        if (count > 0)
+                        {
+                            MessageBox.Show("Username already exists. Please choose a different username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            string insertQuery = "INSERT INTO login (Username, Password) VALUES (@User, @Pass)";
+                            using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn))
+                            {
+                                insertCmd.Parameters.AddWithValue("@User", txtUsername.Text);
+                                insertCmd.Parameters.AddWithValue("@Pass", txtPassword.Text);
+                                insertCmd.ExecuteNonQuery();
+                                MessageBox.Show("User registered successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                txtUsername.Clear();
+                                txtPassword.Clear();
+                                
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
+        }
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
+            
             if (UserSession.Role != "Admin")
             {
                 lvproduct.Hide();
@@ -424,34 +444,164 @@ namespace POS
                 PanelOrder.Hide();
                 panelRegister.Show();
             }
-
-            
+            loaduserfromdatabase();
 
         }
-        
 
-        private void ToggleDarkMode()
-        {
-            
-        }
 
-        // Helper method to recursively update colors on panels and child controls
-        
-        
         private void button1_Click_1(object sender, EventArgs e)
         {
             string info = "POINT OF SALE SYSTEM\n" +
-                              "School Assignment Project\n\n" +
-                              "Developed By Team Members:\n" +
-                              "1. Mean Sreyli - ID: 67695\n" +
-                              "2. San Chenda - ID: 72469\n" +
-                              "3. Chhem Touch - ID: 68550\n" +
-                              "4. Thou Ponlork - ID: 68251\n" +
-                              "5. Chhay sothearithea - ID: 67675\n" +
-                              "6. K. Rachnasoriyareaksmey - ID: 68977\n\n" +
-                              "© 2026 All Rights Reserved";
+                            "School Assignment Project\n\n" +
+                            "Developed By Team Members:\n" +
+                            "1. Mean Sreyli - ID: 67695\n" +
+                            "2. San Chenda - ID: 72469\n" +
+                            "3. Chhem Touch - ID: 68550\n" +
+                            "4. Thou Ponlork - ID: 68251\n" +
+                            "5. Chhay sothearithea - ID: 67675\n" +
+                            "6. K. Rachnasoriyareaksmey - ID: 68977\n\n" +
+                            "© 2026 All Rights Reserved";
 
             MessageBox.Show(info, "About System", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (lvCart.Items.Count == 0)
+            {
+                MessageBox.Show("There is no order to print.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+
+
+            decimal cashGiven = 0;
+            decimal.TryParse(txtCost.Text.Replace("$", "").Replace(",", "").Trim(), out cashGiven);
+
+            // 1. BUILD THE RECEIPT TEXT FOR MESSAGEBOX PREVIEW
+            StringBuilder receipt = new StringBuilder();
+            receipt.AppendLine("==================================");
+            receipt.AppendLine("\t\t  POS SYSTEM");
+            receipt.AppendLine("\t\tOFFICIAL RECEIPT");
+            receipt.AppendLine("==================================");
+            receipt.AppendLine($"Date/Time: {DateTime.Now}");
+            receipt.AppendLine("----------------------------------------");
+            receipt.AppendLine(string.Format("{0,-18} {1,4} {2,14}", "Item", "Qty", "Amount"));
+            receipt.AppendLine("----------------------------------------\n");
+
+            foreach (ListViewItem item in lvCart.Items)
+            {
+                string name = item.SubItems[1].Text;       // Item Name
+                string qty = item.SubItems[3].Text;        // Quantity
+                string amount = item.SubItems[4].Text;     // Total Amount
+
+                if (name.Length > 18) name = name.Substring(0, 15) + "...";
+
+                receipt.AppendLine(string.Format("{0,-18} {1,4} {2,14}", name, qty, amount));
+            }
+
+            receipt.AppendLine("----------------------------------------\n");
+            receipt.AppendLine($"SubTotal: \t".PadRight(24) + txtSubTotal.Text);
+            receipt.AppendLine($"Tax (10%): \t".PadRight(24) + txtTax.Text);
+            receipt.AppendLine($"TOTAL : \t\t".PadRight(24) + txtTotal.Text);
+            receipt.AppendLine($"Cash Given\t".PadRight(24) + cashGiven.ToString("C2"));
+            receipt.AppendLine($"Change: \t\t".PadRight(24) + txtChange.Text);
+            receipt.AppendLine("\n================================");
+            receipt.AppendLine("\t\tTHANK YOU");
+            receipt.AppendLine("================================");
+
+            // 2. SHOW YOUR ORIGINAL MESSAGEBOX PREVIEW FIRST
+            MessageBox.Show(receipt.ToString(), "POS Receipt Preview", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            
+            // Create the Print Document object
+            PrintDocument pd = new PrintDocument();
+
+            // SPECIFY YOUR PRINTER NAME HERE
+            pd.PrinterSettings.PrinterName = "BIXOLON SRP-E300"; // Replace with your exact printer name if different
+
+            // Check if the printer exists before trying to print
+            if (!pd.PrinterSettings.IsValid)
+            {
+                MessageBox.Show("The Bixolon printer ('BIXOLON SRP-E300') could not be found. Please check your printer connection.", "Printer Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Hook up the event that handles what text gets printed
+            pd.PrintPage += new PrintPageEventHandler(PrintReceiptPage);
+
+            try
+            {
+                // Send to printer
+                pd.Print();
+                MessageBox.Show("Receipt printed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Printing Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+        }
+        private void PrintReceiptPage(object sender, PrintPageEventArgs e)
+        {
+            // Receipt styling (Monospaced font keeps columns straight)
+            Font printFont = new Font("Courier New", 9, FontStyle.Regular);
+            Font boldFont = new Font("Courier New", 10, FontStyle.Bold);
+            Brush brush = Brushes.Black;
+
+            float leftMargin = 10; // Left padding on thermal paper
+            float topMargin = 10;
+            float yPos = topMargin;
+
+            // Helper function to draw text lines sequentially
+            Action<string, Font> drawLine = (text, fontToUse) =>
+            {
+                e.Graphics.DrawString(text, fontToUse, brush, leftMargin, yPos);
+                yPos += 15; // Move down line by line (15 pixels per line)
+            };
+
+            // --- RECEIPT HEADER ---
+            drawLine("==================================", boldFont);
+            drawLine("           POS SYSTEM", boldFont);
+            drawLine("         OFFICIAL RECEIPT", boldFont);
+            drawLine("==================================", boldFont);
+            drawLine($"Date/Time: {DateTime.Now}", printFont);
+            drawLine("----------------------------------", printFont);
+            drawLine(string.Format("{0,-16} {1,3} {2,11}", "Item", "Qty", "Amount"), boldFont);
+            drawLine("----------------------------------", printFont);
+
+            // --- CART ITEMS ---
+            foreach (ListViewItem item in lvCart.Items)
+            {
+                string name = item.SubItems[1].Text;       // Item Name
+                string qty = item.SubItems[3].Text;        // Quantity
+                string amount = item.SubItems[4].Text;     // Total Amount
+
+                if (name.Length > 16) name = name.Substring(0, 13) + "...";
+
+                drawLine(string.Format("{0,-16} {1,3} {2,11}", name, qty, amount), printFont);
+            }
+
+            // --- TOTALS & FOOTER ---
+            decimal cashGiven = 0;
+            decimal.TryParse(txtCost.Text.Replace("$", "").Replace(",", "").Trim(), out cashGiven);
+
+            drawLine("----------------------------------", printFont);
+            drawLine($"SubTotal:        {txtSubTotal.Text}", printFont);
+            drawLine($"Tax (10%):       {txtTax.Text}", printFont);
+            drawLine($"TOTAL:           {txtTotal.Text}", boldFont);
+            drawLine($"Cash Given:      {cashGiven.ToString("C2")}", printFont);
+            drawLine($"Change:          {txtChange.Text}", printFont);
+            drawLine("================================--", boldFont);
+            drawLine("          THANK YOU!", boldFont);
+            drawLine("================================--", boldFont);
         }
 
         private void lvproduct_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -460,13 +610,12 @@ namespace POS
             {
                 ListViewItem selectedItem = lvproduct.SelectedItems[0];
 
-                txtProductID.Text = selectedItem.Text;                 // Index 0: Product ID
-                txtProductName.Text = selectedItem.SubItems[1].Text;      // Index 1: Product Name
-                cmbCategory.Text = selectedItem.SubItems[2].Text;          // Index 2: Category
-                txtPrice.Text = selectedItem.SubItems[3].Text.Replace("$", "").Replace(",", "").Trim(); // Index 3: Price
+                txtProductID.Text = selectedItem.Text;
+                txtProductName.Text = selectedItem.SubItems[1].Text;
+                cmbCategory.Text = selectedItem.SubItems[2].Text;
+                txtPrice.Text = selectedItem.SubItems[3].Text.Replace("$", "").Replace(",", "").Trim();
 
-                txtStock.Text = selectedItem.SubItems[4].Text;            // Index 4: Stock
-                txtDiscount.Text = selectedItem.SubItems[5].Text;         // Index 5: Discount
+                txtStock.Text = selectedItem.SubItems[4].Text;
 
                 string query = "SELECT ImagePath FROM Products WHERE ProductID = @ID";
 
@@ -523,15 +672,33 @@ namespace POS
                 }
             }
         }
-
-       
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (UserSession.Role != "Admin")
+            {
+                lvproduct.Hide();
+                panelProduct.Hide();
+                MessageBox.Show("Only administrator can open this", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+                lvproduct.Hide();
+                panelProduct.Hide();
+                lvCart.Hide();
+                lvProducts.Hide();
+                PanelOrder.Hide();
+                panelRegister.Show();
+            }
+        }
+     
 
         private void FormOrder_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
 
-        private void button11_Click(object sender, EventArgs e)
+        private void button11_Click_1(object sender, EventArgs e)
         {
             if (lvCart.Items.Count == 0)
             {
@@ -539,7 +706,6 @@ namespace POS
                 return;
             }
 
-            // Safely parse cash given to format it nicely with currency
             decimal cashGiven = 0;
             decimal.TryParse(txtCost.Text.Replace("$", "").Replace(",", "").Trim(), out cashGiven);
 
@@ -555,9 +721,9 @@ namespace POS
 
             foreach (ListViewItem item in lvCart.Items)
             {
-                string name = item.SubItems[1].Text;       // Item Name
-                string qty = item.SubItems[3].Text;        // Quantity
-                string amount = item.SubItems[4].Text;     // Total Amount
+                string name = item.SubItems[1].Text;
+                string qty = item.SubItems[3].Text;
+                string amount = item.SubItems[4].Text;
 
                 if (name.Length > 18) name = name.Substring(0, 15) + "...";
 
@@ -576,15 +742,38 @@ namespace POS
 
             MessageBox.Show(receipt.ToString(), "POS Receipt Preview", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+        private void btnReset_Click(object sender, EventArgs e)
+
+        {
+
+            txtProductID.Clear();
+
+            txtProductName.Clear();
+
+            txtPrice.Clear();
+
+            txtStock.Clear();
+            txtChange.Clear();
+            txtCost.Clear();
+            txtTotal.Clear();
+            txtTax.Clear();
+            txtSubTotal.Clear();
+
+            cmbCategory.SelectedIndex = -1;
+
+            txtProductID.Focus();
+            
+            lvCart.Items.Clear();
+            
+
+        }
 
         private void SyncProductsToList()
-
         {
             lvProducts.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             lvProducts.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvProducts.Items.Clear();
 
-            // Create and attach ImageList to lvProducts so images show up on the order screen
             ImageList orderImgList = new ImageList();
             orderImgList.ImageSize = new Size(64, 64);
             lvProducts.SmallImageList = orderImgList;
@@ -607,7 +796,6 @@ namespace POS
                             string category = reader["Category"].ToString();
                             string imgPath = reader["ImagePath"]?.ToString();
 
-                            // Load image into the list view's ImageList
                             if (!string.IsNullOrEmpty(imgPath) && File.Exists(imgPath))
                             {
                                 using (Image originalImage = Image.FromFile(imgPath))
@@ -622,12 +810,11 @@ namespace POS
                                 orderImgList.Images.Add(b);
                             }
 
-                            // Create ListViewItem and link image index
                             ListViewItem item = new ListViewItem("");
                             item.ImageIndex = imageIndex++;
-                            item.SubItems.Add(name);              // Name
-                            item.SubItems.Add(price.ToString("C2"));  // Price
-                            item.SubItems.Add(category);              // Category
+                            item.SubItems.Add(name);
+                            item.SubItems.Add(price.ToString("C2"));
+                            item.SubItems.Add(category);
 
                             item.Tag = price;
 
@@ -648,10 +835,8 @@ namespace POS
 
             foreach (ListViewItem item in lvCart.Items)
             {
-                // Ensure the item has the Amount column (Index 4)
                 if (item.SubItems.Count > 4)
                 {
-                    // Remove "$" and "," so C# can safely convert the string to a decimal
                     string amountText = item.SubItems[4].Text.Replace("$", "").Replace(",", "").Trim();
 
                     if (decimal.TryParse(amountText, out decimal amount))
@@ -661,14 +846,14 @@ namespace POS
                 }
             }
 
-            decimal tax = subTotal * 0.10m; // 10% Tax rate
+            decimal tax = subTotal * 0.10m;
             decimal total = subTotal + tax;
 
             txtSubTotal.Text = subTotal.ToString("C2");
             txtTax.Text = tax.ToString("C2");
             txtTotal.Text = total.ToString("C2");
-            
         }
+
         private void AddToCart(string itemName, decimal price)
         {
             bool itemExists = false;
@@ -677,12 +862,10 @@ namespace POS
             {
                 if (item.SubItems[1].Text == itemName)
                 {
-                    // Quantity is at Column index 3
                     int currentQty = Convert.ToInt32(item.SubItems[3].Text);
                     currentQty++;
                     item.SubItems[3].Text = currentQty.ToString();
 
-                    // Amount is at Column index 4 (Qty * Unit Price)
                     decimal totalAmount = currentQty * price;
                     item.SubItems[4].Text = totalAmount.ToString("C2");
 
@@ -694,12 +877,12 @@ namespace POS
             if (!itemExists)
             {
                 int rowNum = lvCart.Items.Count + 1;
-                ListViewItem newItem = new ListViewItem(rowNum.ToString()); // Column 0: No
-                newItem.SubItems.Add(itemName);                             // Column 1: Items
-                newItem.SubItems.Add(price.ToString("C2"));                 // Column 2: Price (Unit Price)
-                newItem.SubItems.Add("1");                                  // Column 3: Qty (starts at 1)
-                newItem.SubItems.Add(price.ToString("C2"));                 // Column 4: Amount (1 * Price)
-                newItem.Tag = price;                                        // Store base unit price reference
+                ListViewItem newItem = new ListViewItem(rowNum.ToString());
+                newItem.SubItems.Add(itemName);
+                newItem.SubItems.Add(price.ToString("C2"));
+                newItem.SubItems.Add("1");
+                newItem.SubItems.Add(price.ToString("C2"));
+                newItem.Tag = price;
 
                 lvCart.Items.Add(newItem);
             }
@@ -713,7 +896,7 @@ namespace POS
             {
                 ListViewItem selected = lvProducts.SelectedItems[0];
 
-                string itemName = selected.SubItems[1].Text; // Name column
+                string itemName = selected.SubItems[1].Text;
                 decimal price = Convert.ToDecimal(selected.Tag ?? 0);
 
                 AddToCart(itemName, price);
@@ -724,27 +907,22 @@ namespace POS
 
         private void lvproduct_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void btnClearCalc_Click(object sender, EventArgs e)
         {
             txtCost.Text = "";
         }
-        
-        
 
         private void button13_Click_1(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
 
-            // Prevent adding more than one decimal point (.)
             if (btn.Text == "." && txtCost.Text.Contains("."))
             {
                 return;
             }
 
-            // If txtCost is empty or just "0", replace it (unless clicking "."), otherwise append
             if ((txtCost.Text == "0" || string.IsNullOrEmpty(txtCost.Text)) && btn.Text != ".")
             {
                 txtCost.Text = btn.Text;
@@ -764,101 +942,128 @@ namespace POS
                 return;
             }
 
-            // 2. Check if the customer entered the cash given (txtCost)
             if (string.IsNullOrEmpty(txtCost.Text) || !decimal.TryParse(txtCost.Text, out decimal cashGiven))
             {
                 MessageBox.Show("Please enter the cash amount given by the customer in the cost box.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 3. Check if the cash given is enough to cover the total
             if (cashGiven < totalAmount)
             {
                 MessageBox.Show("The cash given is less than the total amount due!", "Insufficient Funds", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            // 4. Calculate Change (Cash Given - Total)
+            MessageBox.Show("Payment successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             decimal change = cashGiven - totalAmount;
 
-            // 5. Display change in txtChange (formatted with dollar sign)
             txtChange.Text = change.ToString("C2");
+        }
+
+        private void lvUser_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
             
 
-            // Optional: Show success message or finalize order here
-            MessageBox.Show("Payment successful!\nNow you can print for receipt.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
-        private void lvCart_SelectedIndexChanged(object sender, EventArgs e)
+        private void loaduserfromdatabase()
         {
-
-        }
-
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-            lvCart.Items.Clear();
-            txtSubTotal.Clear();
-            txtTax.Clear();
-            txtTotal.Clear();
-            txtCost.Clear();
-            txtChange.Clear();
-            MessageBox.Show("Cart has been reset.", "Reset", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btnRegister_Click_1(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Text))
+            lvUser.Items.Clear();
+            string query = "SELECT username FROM login";
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                MessageBox.Show("Please enter both username and password.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    try
+                    {
+                        conn.Open();
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        lvUser.Items.Clear();
+                        while (reader.Read())
+                        {
+                            int rowNumber = 1; // Start counter at 1
+                            while (reader.Read())
+                            {
+                                // 1. The first parameter is the row index number (1, 2, 3...) for your "No" column
+                                ListViewItem item = new ListViewItem(rowNumber.ToString());
+                               item.SubItems.Add(reader["username"].ToString());
+                                lvUser.Items.Add(item);
+                                rowNumber++;
+                            }
+
+                            
+                        }
+                    }
+                    
+
+
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error loading user data: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void button11_Click_2(object sender, EventArgs e)
+        {
+            string query = "DELETE FROM login WHERE Username = @User";
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@User", txtUsername.Text);
+                    try
+                    {
+                        conn.Open();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("User deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            txtUsername.Clear();
+                            txtPassword.Clear();
+                        }
+                        else
+                        {
+                            MessageBox.Show("User not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+
+            FormLogin loginForm = new FormLogin();
+            loginForm.Show();
+            this.Hide(); 
+
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            
+            if (lvCart.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please select an item from the cart to remove.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text.Trim();
-
-            // 2. Check if username already exists in the 'login' table to avoid duplicates
-            string checkQuery = "SELECT COUNT(*) FROM login WHERE Username = @Username";
-            string insertQuery = "INSERT INTO login (Username, Password) VALUES (@Username, @Password)";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            foreach (ListViewItem selectedItem in lvCart.SelectedItems)
             {
-                try
-                {
-                    conn.Open();
-
-                    // Check existing user
-                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
-                    {
-                        checkCmd.Parameters.AddWithValue("@Username", username);
-                        int userExists = (int)checkCmd.ExecuteScalar();
-
-                        if (userExists > 0)
-                        {
-                            MessageBox.Show("This username is already taken. Choose another one.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                    }
-
-                    // Insert new user directly into the 'login' table
-                    using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn))
-                    {
-                        insertCmd.Parameters.AddWithValue("@Username", username);
-                        insertCmd.Parameters.AddWithValue("@Password", password);
-
-                        insertCmd.ExecuteNonQuery();
-                        MessageBox.Show("Registration successful! New user added to the login table.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        // Clear fields and close form
-                        txtUsername.Clear();
-                        txtPassword.Clear();
-                        this.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                lvCart.Items.Remove(selectedItem);
             }
+
+            for (int i = 0; i < lvCart.Items.Count; i++)
+            {
+                lvCart.Items[i].Text = (i + 1).ToString();
+            }
+
+            CalculateTotals();
         }
     }
 }

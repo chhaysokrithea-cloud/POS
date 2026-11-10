@@ -63,9 +63,49 @@ namespace POS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Cocacola {
+        internal static System.Drawing.Bitmap BlueSOda {
             get {
-                object obj = ResourceManager.GetObject("Cocacola", resourceCulture);
+                object obj = ResourceManager.GetObject("BlueSOda", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BrownSugar {
+            get {
+                object obj = ResourceManager.GetObject("BrownSugar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Cappocino {
+            get {
+                object obj = ResourceManager.GetObject("Cappocino", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IceAmerico {
+            get {
+                object obj = ResourceManager.GetObject("IceAmerico", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Icelatte {
+            get {
+                object obj = ResourceManager.GetObject("Icelatte", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +123,49 @@ namespace POS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap MJ_Diamond_Laptop {
+        internal static System.Drawing.Bitmap LemonTea {
             get {
-                object obj = ResourceManager.GetObject("MJ Diamond Laptop", resourceCulture);
+                object obj = ResourceManager.GetObject("LemonTea", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Login {
+            get {
+                object obj = ResourceManager.GetObject("Login", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Matcha {
+            get {
+                object obj = ResourceManager.GetObject("Matcha", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Milk {
+            get {
+                object obj = ResourceManager.GetObject("Milk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MilkTea {
+            get {
+                object obj = ResourceManager.GetObject("MilkTea", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,19 +233,9 @@ namespace POS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Sting {
+        internal static System.Drawing.Bitmap SecurityLogo {
             get {
-                object obj = ResourceManager.GetObject("Sting", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Topoki {
-            get {
-                object obj = ResourceManager.GetObject("Topoki", resourceCulture);
+                object obj = ResourceManager.GetObject("SecurityLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

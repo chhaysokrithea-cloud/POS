@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormOrder));
-            this.btnProduct = new System.Windows.Forms.Button();
-            this.btnOrder = new System.Windows.Forms.Button();
-            this.btnRegisterUser = new System.Windows.Forms.Button();
             this.panelProduct = new System.Windows.Forms.Panel();
             this.lblFileName = new System.Windows.Forms.Label();
             this.pictureBoxProduct = new System.Windows.Forms.PictureBox();
@@ -41,7 +38,6 @@
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cmbCategory = new System.Windows.Forms.ComboBox();
-            this.txtDiscount = new System.Windows.Forms.TextBox();
             this.txtStock = new System.Windows.Forms.TextBox();
             this.txtProductName = new System.Windows.Forms.TextBox();
             this.txtProductID = new System.Windows.Forms.TextBox();
@@ -49,12 +45,10 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.PanelOrder = new System.Windows.Forms.Panel();
             this.lvCart = new System.Windows.Forms.ListView();
             this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -99,60 +93,27 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelRegister = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lvUser = new System.Windows.Forms.ListView();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.button11 = new System.Windows.Forms.Button();
             this.btnRegister = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnRegisterUser = new System.Windows.Forms.Button();
+            this.btnOrder = new System.Windows.Forms.Button();
+            this.btnProduct = new System.Windows.Forms.Button();
             this.panelProduct.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).BeginInit();
             this.PanelOrder.SuspendLayout();
             this.panelRegister.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnProduct
-            // 
-            this.btnProduct.Font = new System.Drawing.Font("NiDA OdorMeanChey", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProduct.Image = ((System.Drawing.Image)(resources.GetObject("btnProduct.Image")));
-            this.btnProduct.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProduct.Location = new System.Drawing.Point(276, 10);
-            this.btnProduct.Name = "btnProduct";
-            this.btnProduct.Size = new System.Drawing.Size(280, 107);
-            this.btnProduct.TabIndex = 0;
-            this.btnProduct.Text = "Product";
-            this.btnProduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnProduct.UseVisualStyleBackColor = true;
-            this.btnProduct.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btnOrder
-            // 
-            this.btnOrder.Font = new System.Drawing.Font("NiDA OdorMeanChey", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOrder.Image = ((System.Drawing.Image)(resources.GetObject("btnOrder.Image")));
-            this.btnOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOrder.Location = new System.Drawing.Point(8, 10);
-            this.btnOrder.Name = "btnOrder";
-            this.btnOrder.Size = new System.Drawing.Size(240, 107);
-            this.btnOrder.TabIndex = 2;
-            this.btnOrder.Text = "Order";
-            this.btnOrder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnOrder.UseVisualStyleBackColor = true;
-            this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
-            // 
-            // btnRegisterUser
-            // 
-            this.btnRegisterUser.Font = new System.Drawing.Font("NiDA OdorMeanChey", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRegisterUser.Image = ((System.Drawing.Image)(resources.GetObject("btnRegisterUser.Image")));
-            this.btnRegisterUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRegisterUser.Location = new System.Drawing.Point(621, 10);
-            this.btnRegisterUser.Name = "btnRegisterUser";
-            this.btnRegisterUser.Size = new System.Drawing.Size(254, 107);
-            this.btnRegisterUser.TabIndex = 3;
-            this.btnRegisterUser.Text = "Register User";
-            this.btnRegisterUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnRegisterUser.UseVisualStyleBackColor = true;
-            this.btnRegisterUser.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // panelProduct
             // 
@@ -164,7 +125,6 @@
             this.panelProduct.Controls.Add(this.txtPrice);
             this.panelProduct.Controls.Add(this.label8);
             this.panelProduct.Controls.Add(this.cmbCategory);
-            this.panelProduct.Controls.Add(this.txtDiscount);
             this.panelProduct.Controls.Add(this.txtStock);
             this.panelProduct.Controls.Add(this.txtProductName);
             this.panelProduct.Controls.Add(this.txtProductID);
@@ -172,7 +132,6 @@
             this.panelProduct.Controls.Add(this.btnUpdate);
             this.panelProduct.Controls.Add(this.btnDelete);
             this.panelProduct.Controls.Add(this.btnAdd);
-            this.panelProduct.Controls.Add(this.label7);
             this.panelProduct.Controls.Add(this.label5);
             this.panelProduct.Controls.Add(this.label3);
             this.panelProduct.Controls.Add(this.label2);
@@ -260,17 +219,9 @@
             this.cmbCategory.Size = new System.Drawing.Size(249, 28);
             this.cmbCategory.TabIndex = 19;
             // 
-            // txtDiscount
-            // 
-            this.txtDiscount.Location = new System.Drawing.Point(233, 216);
-            this.txtDiscount.Multiline = true;
-            this.txtDiscount.Name = "txtDiscount";
-            this.txtDiscount.Size = new System.Drawing.Size(249, 43);
-            this.txtDiscount.TabIndex = 18;
-            // 
             // txtStock
             // 
-            this.txtStock.Location = new System.Drawing.Point(233, 265);
+            this.txtStock.Location = new System.Drawing.Point(233, 220);
             this.txtStock.Multiline = true;
             this.txtStock.Name = "txtStock";
             this.txtStock.Size = new System.Drawing.Size(249, 43);
@@ -332,21 +283,11 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(96, 224);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(106, 29);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Discount";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(77, 274);
+            this.label5.Location = new System.Drawing.Point(77, 229);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(134, 29);
             this.label5.TabIndex = 4;
@@ -382,20 +323,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Product ID";
             // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("NiDA OdorMeanChey", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(922, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(250, 104);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "About";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
             // PanelOrder
             // 
             this.PanelOrder.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -429,7 +356,7 @@
             this.PanelOrder.Controls.Add(this.button4);
             this.PanelOrder.Controls.Add(this.button3);
             this.PanelOrder.Controls.Add(this.button2);
-            this.PanelOrder.Location = new System.Drawing.Point(17, 135);
+            this.PanelOrder.Location = new System.Drawing.Point(17, 120);
             this.PanelOrder.Name = "PanelOrder";
             this.PanelOrder.Size = new System.Drawing.Size(1303, 637);
             this.PanelOrder.TabIndex = 15;
@@ -442,6 +369,7 @@
             this.columnHeader17,
             this.columnHeader18,
             this.columnHeader19});
+            this.lvCart.FullRowSelect = true;
             this.lvCart.HideSelection = false;
             this.lvCart.Location = new System.Drawing.Point(381, 3);
             this.lvCart.Name = "lvCart";
@@ -539,6 +467,7 @@
             this.btnRemove.TabIndex = 28;
             this.btnRemove.Text = "Remove Items";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnReset
             // 
@@ -638,134 +567,146 @@
             // 
             // button14
             // 
+            this.button14.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button14.Location = new System.Drawing.Point(243, 325);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(114, 102);
             this.button14.TabIndex = 11;
             this.button14.Text = ".";
-            this.button14.UseVisualStyleBackColor = true;
+            this.button14.UseVisualStyleBackColor = false;
             this.button14.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button13
             // 
+            this.button13.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button13.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button13.Location = new System.Drawing.Point(123, 327);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(114, 102);
             this.button13.TabIndex = 10;
             this.button13.Text = "0";
-            this.button13.UseVisualStyleBackColor = true;
+            this.button13.UseVisualStyleBackColor = false;
             this.button13.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // btnClearCalc
             // 
+            this.btnClearCalc.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnClearCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearCalc.Location = new System.Drawing.Point(3, 327);
             this.btnClearCalc.Name = "btnClearCalc";
             this.btnClearCalc.Size = new System.Drawing.Size(114, 102);
             this.btnClearCalc.TabIndex = 9;
             this.btnClearCalc.Text = "C";
-            this.btnClearCalc.UseVisualStyleBackColor = true;
+            this.btnClearCalc.UseVisualStyleBackColor = false;
             this.btnClearCalc.Click += new System.EventHandler(this.btnClearCalc_Click);
             // 
             // button10
             // 
+            this.button10.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button10.Location = new System.Drawing.Point(243, 217);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(114, 102);
             this.button10.TabIndex = 8;
             this.button10.Text = "1";
-            this.button10.UseVisualStyleBackColor = true;
+            this.button10.UseVisualStyleBackColor = false;
             this.button10.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button9
             // 
+            this.button9.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button9.Location = new System.Drawing.Point(123, 219);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(114, 102);
             this.button9.TabIndex = 7;
             this.button9.Text = "2";
-            this.button9.UseVisualStyleBackColor = true;
+            this.button9.UseVisualStyleBackColor = false;
             this.button9.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button8
             // 
+            this.button8.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button8.Location = new System.Drawing.Point(3, 219);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(114, 102);
             this.button8.TabIndex = 6;
             this.button8.Text = "3";
-            this.button8.UseVisualStyleBackColor = true;
+            this.button8.UseVisualStyleBackColor = false;
             this.button8.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button7
             // 
+            this.button7.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.Location = new System.Drawing.Point(243, 111);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(114, 102);
             this.button7.TabIndex = 5;
             this.button7.Text = "6";
-            this.button7.UseVisualStyleBackColor = true;
+            this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button6
             // 
+            this.button6.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.Location = new System.Drawing.Point(243, 3);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(114, 102);
             this.button6.TabIndex = 4;
             this.button6.Text = "9";
-            this.button6.UseVisualStyleBackColor = true;
+            this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button5
             // 
+            this.button5.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.Location = new System.Drawing.Point(123, 111);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(114, 102);
             this.button5.TabIndex = 3;
             this.button5.Text = "5";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button4
             // 
+            this.button4.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.Location = new System.Drawing.Point(3, 111);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(114, 102);
             this.button4.TabIndex = 2;
             this.button4.Text = "4";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Location = new System.Drawing.Point(123, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(114, 102);
             this.button3.TabIndex = 1;
             this.button3.Text = "8";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Location = new System.Drawing.Point(3, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(114, 102);
             this.button2.TabIndex = 0;
             this.button2.Text = "7";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button13_Click_1);
             // 
             // lvproduct
@@ -779,12 +720,11 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader6,
-            this.columnHeader7});
+            this.columnHeader6});
             this.lvproduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvproduct.FullRowSelect = true;
             this.lvproduct.HideSelection = false;
-            this.lvproduct.Location = new System.Drawing.Point(20, 575);
+            this.lvproduct.Location = new System.Drawing.Point(17, 453);
             this.lvproduct.Name = "lvproduct";
             this.lvproduct.Size = new System.Drawing.Size(1269, 255);
             this.lvproduct.TabIndex = 17;
@@ -817,29 +757,74 @@
             this.columnHeader6.Text = "Stock";
             this.columnHeader6.Width = 150;
             // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Discount";
-            this.columnHeader7.Width = 150;
-            // 
             // panelRegister
             // 
+            this.panelRegister.Controls.Add(this.label7);
+            this.panelRegister.Controls.Add(this.lvUser);
+            this.panelRegister.Controls.Add(this.button11);
             this.panelRegister.Controls.Add(this.btnRegister);
             this.panelRegister.Controls.Add(this.label6);
             this.panelRegister.Controls.Add(this.txtPassword);
             this.panelRegister.Controls.Add(this.label4);
             this.panelRegister.Controls.Add(this.txtUsername);
-            this.panelRegister.Location = new System.Drawing.Point(268, 190);
+            this.panelRegister.Location = new System.Drawing.Point(164, 144);
             this.panelRegister.Name = "panelRegister";
-            this.panelRegister.Size = new System.Drawing.Size(589, 368);
+            this.panelRegister.Size = new System.Drawing.Size(837, 496);
             this.panelRegister.TabIndex = 22;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(34, 16);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(515, 25);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "Please enter the username and password for the new user";
+            // 
+            // lvUser
+            // 
+            this.lvUser.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader7,
+            this.columnHeader9});
+            this.lvUser.HideSelection = false;
+            this.lvUser.Location = new System.Drawing.Point(590, 28);
+            this.lvUser.Name = "lvUser";
+            this.lvUser.Size = new System.Drawing.Size(231, 398);
+            this.lvUser.TabIndex = 24;
+            this.lvUser.UseCompatibleStateImageBehavior = false;
+            this.lvUser.View = System.Windows.Forms.View.Details;
+            this.lvUser.SelectedIndexChanged += new System.EventHandler(this.lvUser_SelectedIndexChanged);
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "No";
+            this.columnHeader7.Width = 80;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Username";
+            this.columnHeader9.Width = 107;
+            // 
+            // button11
+            // 
+            this.button11.BackColor = System.Drawing.Color.Firebrick;
+            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button11.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button11.Location = new System.Drawing.Point(307, 303);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(216, 100);
+            this.button11.TabIndex = 23;
+            this.button11.Text = "Delete user";
+            this.button11.UseVisualStyleBackColor = false;
+            this.button11.Click += new System.EventHandler(this.button11_Click_2);
             // 
             // btnRegister
             // 
             this.btnRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegister.Image = global::POS.Properties.Resources.Picture7;
             this.btnRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRegister.Location = new System.Drawing.Point(142, 238);
+            this.btnRegister.Location = new System.Drawing.Point(8, 303);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(266, 100);
             this.btnRegister.TabIndex = 22;
@@ -852,7 +837,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(114, 124);
+            this.label6.Location = new System.Drawing.Point(114, 184);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(120, 29);
             this.label6.TabIndex = 21;
@@ -861,7 +846,7 @@
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(241, 110);
+            this.txtPassword.Location = new System.Drawing.Point(241, 170);
             this.txtPassword.Multiline = true;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(206, 48);
@@ -871,7 +856,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(113, 50);
+            this.label4.Location = new System.Drawing.Point(113, 110);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(124, 29);
             this.label4.TabIndex = 20;
@@ -880,11 +865,79 @@
             // txtUsername
             // 
             this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsername.Location = new System.Drawing.Point(241, 44);
+            this.txtUsername.Location = new System.Drawing.Point(241, 104);
             this.txtUsername.Multiline = true;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(206, 48);
             this.txtUsername.TabIndex = 18;
+            // 
+            // button12
+            // 
+            this.button12.BackColor = System.Drawing.Color.Firebrick;
+            this.button12.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.button12.Location = new System.Drawing.Point(1210, 30);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(110, 64);
+            this.button12.TabIndex = 23;
+            this.button12.Text = "Log off";
+            this.button12.UseVisualStyleBackColor = false;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("NiDA OdorMeanChey", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(922, 10);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(250, 104);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "About";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // btnRegisterUser
+            // 
+            this.btnRegisterUser.Font = new System.Drawing.Font("NiDA OdorMeanChey", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegisterUser.Image = ((System.Drawing.Image)(resources.GetObject("btnRegisterUser.Image")));
+            this.btnRegisterUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRegisterUser.Location = new System.Drawing.Point(621, 10);
+            this.btnRegisterUser.Name = "btnRegisterUser";
+            this.btnRegisterUser.Size = new System.Drawing.Size(254, 107);
+            this.btnRegisterUser.TabIndex = 3;
+            this.btnRegisterUser.Text = "Register User";
+            this.btnRegisterUser.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRegisterUser.UseVisualStyleBackColor = true;
+            this.btnRegisterUser.Click += new System.EventHandler(this.btnRegister_Click);
+            // 
+            // btnOrder
+            // 
+            this.btnOrder.Font = new System.Drawing.Font("NiDA OdorMeanChey", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOrder.Image = ((System.Drawing.Image)(resources.GetObject("btnOrder.Image")));
+            this.btnOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOrder.Location = new System.Drawing.Point(8, 10);
+            this.btnOrder.Name = "btnOrder";
+            this.btnOrder.Size = new System.Drawing.Size(240, 107);
+            this.btnOrder.TabIndex = 2;
+            this.btnOrder.Text = "Order";
+            this.btnOrder.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOrder.UseVisualStyleBackColor = true;
+            this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
+            // 
+            // btnProduct
+            // 
+            this.btnProduct.Font = new System.Drawing.Font("NiDA OdorMeanChey", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProduct.Image = ((System.Drawing.Image)(resources.GetObject("btnProduct.Image")));
+            this.btnProduct.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnProduct.Location = new System.Drawing.Point(276, 10);
+            this.btnProduct.Name = "btnProduct";
+            this.btnProduct.Size = new System.Drawing.Size(280, 107);
+            this.btnProduct.TabIndex = 0;
+            this.btnProduct.Text = "Product";
+            this.btnProduct.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnProduct.UseVisualStyleBackColor = true;
+            this.btnProduct.Click += new System.EventHandler(this.button1_Click);
             // 
             // FormOrder
             // 
@@ -892,6 +945,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1467, 1006);
+            this.Controls.Add(this.button12);
             this.Controls.Add(this.panelRegister);
             this.Controls.Add(this.lvproduct);
             this.Controls.Add(this.PanelOrder);
@@ -922,7 +976,6 @@
         private System.Windows.Forms.Button btnOrder;
         private System.Windows.Forms.Button btnRegisterUser;
         private System.Windows.Forms.Panel panelProduct;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -932,7 +985,6 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.TextBox txtProductID;
-        private System.Windows.Forms.TextBox txtDiscount;
         private System.Windows.Forms.TextBox txtStock;
         private System.Windows.Forms.TextBox txtProductName;
         private System.Windows.Forms.ComboBox cmbCategory;
@@ -982,7 +1034,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.ListView lvCart;
         private System.Windows.Forms.ColumnHeader columnHeader15;
         private System.Windows.Forms.ColumnHeader columnHeader16;
@@ -995,5 +1046,11 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.ListView lvUser;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Label label7;
     }
 }

@@ -37,6 +37,7 @@
             this.txtpass = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -46,11 +47,10 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btnlogin = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnlogin = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -58,7 +58,7 @@
             // btncancel
             // 
             this.btncancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btncancel.Location = new System.Drawing.Point(200, 594);
+            this.btncancel.Location = new System.Drawing.Point(200, 586);
             this.btncancel.Name = "btncancel";
             this.btncancel.Size = new System.Drawing.Size(147, 53);
             this.btncancel.TabIndex = 1;
@@ -106,6 +106,7 @@
             this.txtuser.Name = "txtuser";
             this.txtuser.Size = new System.Drawing.Size(379, 42);
             this.txtuser.TabIndex = 6;
+            this.txtuser.TextChanged += new System.EventHandler(this.txtuser_TextChanged);
             // 
             // txtpass
             // 
@@ -144,6 +145,17 @@
             this.panel1.Size = new System.Drawing.Size(576, 700);
             this.panel1.TabIndex = 11;
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label15.Location = new System.Drawing.Point(61, 87);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(323, 25);
+            this.label15.TabIndex = 11;
+            this.label15.Text = "Please sign in to access this system";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -158,7 +170,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(190, 304);
+            this.label5.Location = new System.Drawing.Point(183, 338);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(142, 29);
             this.label5.TabIndex = 12;
@@ -168,7 +180,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(190, 346);
+            this.label6.Location = new System.Drawing.Point(181, 379);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(135, 29);
             this.label6.TabIndex = 13;
@@ -177,10 +189,10 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(151, 387);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(151, 303);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(238, 29);
+            this.label7.Size = new System.Drawing.Size(258, 29);
             this.label7.TabIndex = 14;
             this.label7.Text = "Lecturer : Bou Chhon";
             // 
@@ -234,6 +246,26 @@
             this.label12.TabIndex = 19;
             this.label12.Text = "4. Thou Ponlork";
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(133, 605);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(389, 29);
+            this.label13.TabIndex = 21;
+            this.label13.Text = "5. Khoeun Rachanasoriyaraeksmey";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(133, 647);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(243, 29);
+            this.label14.TabIndex = 22;
+            this.label14.Text = "6. Chhay sothearithea";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::POS.Properties.Resources.SecurityLogo;
@@ -246,50 +278,19 @@
             // 
             // btnlogin
             // 
-            this.btnlogin.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnlogin.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnlogin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnlogin.Font = new System.Drawing.Font("Arial Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnlogin.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnlogin.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnlogin.ForeColor = System.Drawing.Color.Black;
             this.btnlogin.Image = ((System.Drawing.Image)(resources.GetObject("btnlogin.Image")));
             this.btnlogin.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnlogin.Location = new System.Drawing.Point(76, 472);
             this.btnlogin.Name = "btnlogin";
-            this.btnlogin.Size = new System.Drawing.Size(379, 71);
+            this.btnlogin.Size = new System.Drawing.Size(379, 63);
             this.btnlogin.TabIndex = 0;
             this.btnlogin.Text = "Login";
             this.btnlogin.UseVisualStyleBackColor = false;
             this.btnlogin.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(133, 605);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(377, 29);
-            this.label13.TabIndex = 21;
-            this.label13.Text = "5. Kheon Rechanasoriyareaksmey";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(133, 647);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(243, 29);
-            this.label14.TabIndex = 22;
-            this.label14.Text = "6. Chhay sothearithea";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label15.Location = new System.Drawing.Point(61, 87);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(323, 25);
-            this.label15.TabIndex = 11;
-            this.label15.Text = "Please sign in to access this system";
             // 
             // FormLogin
             // 

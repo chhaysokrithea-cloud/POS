@@ -191,7 +191,16 @@ namespace POS
             item.SubItems.Add(string.IsNullOrEmpty(txtStock.Text) ? "0" : txtStock.Text);
 
             lvproduct.Items.Add(item);
+            ImageList imageList1 = lvproduct.SmallImageList ?? new ImageList();
+            if (!string.IsNullOrEmpty(selectedImagePath) && File.Exists(selectedImagePath))
+            {
+                string key = txtProductID.Text.Trim();
+                if (imageList1.Images.ContainsKey(key))
+                    imageList1.Images.RemoveByKey(key);
 
+                imageList1.Images.Add(key, Image.FromFile(selectedImagePath));
+                item.ImageKey = key;
+            }
             btnClear_Click(sender, e);
             SyncProductsToList();
         }
@@ -223,6 +232,7 @@ namespace POS
                         {
                             conn.Open();
                             cmd.ExecuteNonQuery();
+                            MessageBox.Show("Product Deleted successfully!");
                         }
                         catch (Exception ex)
                         {
@@ -279,6 +289,10 @@ namespace POS
                         MessageBox.Show("Product updated successfully!");
                         LoadProductsFromDatabase();
                         SyncProductsToList();
+                      pictureBoxProduct.Image = null;
+                        selectedImagePath = "";
+                        lblFileName.Text = "No image attached";
+
                     }
                     catch (Exception ex)
                     {
@@ -1006,34 +1020,29 @@ namespace POS
 
         private void button11_Click_2(object sender, EventArgs e)
         {
-            string query = "DELETE FROM login WHERE Username = @User";
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            if (lvUser.SelectedItems.Count == 0) return;
+
+            var selected = lvUser.SelectedItems[0];
+            string username = selected.SubItems[1].Text; // Change index if username is in another column
+
+            using (var conn = new SqlConnection(connectionString))
+            using (var cmd = new SqlCommand("DELETE FROM login WHERE username = @u", conn))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                cmd.Parameters.Add("@u", SqlDbType.VarChar, 100).Value = username;
+                conn.Open();
+
+                if (cmd.ExecuteNonQuery() > 0)
                 {
-                    cmd.Parameters.AddWithValue("@User", txtUsername.Text);
-                    try
-                    {
-                        conn.Open();
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        if (rowsAffected > 0)
-                        {
-                            MessageBox.Show("User deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            txtUsername.Clear();
-                            txtPassword.Clear();
-                        }
-                        else
-                        {
-                            MessageBox.Show("User not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Database Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    lvUser.Items.Remove(selected);
+                    for (int i = 0; i < lvUser.Items.Count; i++)
+                        lvUser.Items[i].Text = (i + 1).ToString();
                 }
+
+
             }
         }
+            
+        
 
         private void button12_Click(object sender, EventArgs e)
         {

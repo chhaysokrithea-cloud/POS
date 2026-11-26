@@ -114,5 +114,10 @@ namespace POS
         {
             Application.Exit();
         }
+
+        private void txtuser_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

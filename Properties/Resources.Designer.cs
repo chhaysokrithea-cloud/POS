@@ -93,6 +93,26 @@ namespace POS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap CoffeeBean {
+            get {
+                object obj = ResourceManager.GetObject("CoffeeBean", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap croissain {
+            get {
+                object obj = ResourceManager.GetObject("croissain", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IceAmerico {
             get {
                 object obj = ResourceManager.GetObject("IceAmerico", resourceCulture);
@@ -116,6 +136,16 @@ namespace POS.Properties {
         internal static System.Drawing.Bitmap IconLogin {
             get {
                 object obj = ResourceManager.GetObject("IconLogin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap KofiMatcha {
+            get {
+                object obj = ResourceManager.GetObject("KofiMatcha", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -223,9 +253,9 @@ namespace POS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Pizza {
+        internal static System.Drawing.Bitmap Sandwich {
             get {
-                object obj = ResourceManager.GetObject("Pizza", resourceCulture);
+                object obj = ResourceManager.GetObject("Sandwich", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -236,6 +266,16 @@ namespace POS.Properties {
         internal static System.Drawing.Bitmap SecurityLogo {
             get {
                 object obj = ResourceManager.GetObject("SecurityLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Sting {
+            get {
+                object obj = ResourceManager.GetObject("Sting", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
